@@ -1,0 +1,24 @@
+public class Recursion{
+    public static String name(){
+	return "Zhao,Barnett";
+    }
+
+    public static double sqrt(double n){
+	if(n < 0){
+	    throw new IllegalArgumentException(e);
+	} else{
+	    double guess = (n / 1 + n) / 2;
+	    if(helper(n, guess)){
+		return guess;
+	    } else{
+		return sqrt(guess);
+	    }
+	}
+    }
+
+    //determines if guess^2 is equal to n;
+    private static boolean helper(double n, double guess){
+	return (guess * guess - n) / n < 0.00000000001;
+    }
+
+}
