@@ -1,0 +1,34 @@
+public class Quick{
+    public static int part ( int [] data, int start, int end){
+	//generates random index to be pivot
+	Random randgen = new Random();
+	randomIndex = randgen.nextInt(end - start + 1) + start;
+	int pivot = data[randomIndex];
+	//System.out.println(pivot);
+	//swaps the pivot with the last element
+	swap(randomIndex, index.length - 1);
+	//loops through the array and swaps accordingly
+	int newLocation = 0; //varaible to keep track of newLocation for the pivot in the loop
+	for(int index = 0; index < data.length - 1; index++){
+	    if(data[index] >= pivot){
+		swap(index, index + 1);
+		newLocation = index;
+	    }
+	}
+	//
+	swap(newLocation, data.length - 1);
+	return newLocation;
+    }
+
+    private static void swap(int index1, int index2){
+	int temp = data[index1];
+	data[index1] = data[index2];
+	data[index2] = temp;
+    }
+
+    public static void main(String[] args){
+	int[]ary = { 2, 10, 15, 23, 0,  5};
+	System.out.println(part(ary, 0, 5));
+	//System.out.println(part(ary,
+    
+}
