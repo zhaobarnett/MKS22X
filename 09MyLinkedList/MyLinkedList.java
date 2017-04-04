@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MyLinkedList{
     private int size;
     private LNode start;
@@ -18,6 +20,21 @@ public class MyLinkedList{
 	
 	private LNode(int value){
 	    this.value = value;
+	}
+
+	public String toString(){
+	    if(prev == null && next == null){
+		return "(null)" + value + "(null)";
+	    }
+	    else if(prev == null){
+		return "(null)" + value + "(" + next.value + ")";
+	    }
+	    else if(next == null){
+		return "(" + prev.value + ")" + value + "(null)";
+	    }
+	    else{
+		return "(" + prev.value + ")" + value + "(" + next.value + ")";
+	    }
 	}
 	
     }
@@ -43,8 +60,9 @@ public class MyLinkedList{
 		//otherwise, continue iterating through the linked list
 	    //	current = current.next;
 	    //}
-	    end.next = new LNode(value);
-	    end = end.next;
+	    end.next = new LNode(value); //attaching new node to end
+	    end.next.prev = end; //sets the new node's prev
+	    end = end.next; //sets the new end
 	    size++;
 	    return true;
 	}
@@ -83,12 +101,25 @@ public class MyLinkedList{
 	}
 	return oldValue;
     }
+
+    public int indexOf(int value){
+	int ans = -1;
+	LNode current = start;
+	for(int i = 0; i < size; i++){
+	    if(current.value == value){
+		ans = i;
+		return ans; //end the loop
+	    }
+	    current = current.next;
+	}
+	return ans;
+    }
     
     public int size(){
 	return size;
     }
 
-    public String toString(){
+    public String toStringx(){
 	//current is a temporary reference to node when iterating through linked list
 	LNode current = start;
 	String retVal = "[";
@@ -104,7 +135,25 @@ public class MyLinkedList{
 	}
 	return retVal+= "]";
     }
-    
+
+    //for debugging
+    public String toString(){
+	//current is a temporary reference to node when iterating through linked list
+	LNode current = start;
+	String retVal = "[";
+	for(int i = 0; i < size; i++){
+	    if(i < size - 1){
+		retVal += current.toString() + ", ";
+	    }
+	    else{
+		retVal += current.toString();
+	    }
+	    //reference to next node
+	    current = current.next;
+	}
+	return retVal+= "]";
+    }
+
     public static void main(String[] args){
 	//testing basic add and toString
 	MyLinkedList a = new MyLinkedList();
@@ -133,6 +182,9 @@ public class MyLinkedList{
 	//System.out.println(c.set(15, 1));
 	System.out.println(c.set(3, 33));
 	System.out.println(c);
+	//indexOf
+	System.out.println(c.indexOf(100));
+	System.out.println(c.indexOf(33));
 	
     }
     
