@@ -26,24 +26,28 @@ public class MyLinkedList{
     public boolean add(int value){
 	if(start == null){
 	    start = new LNode(value);
+	    end = start;
 	    size++;
 	    return true;
 	} else{
 	    //current is a temp reference
-	    LNode current = start;
+	    // LNode current = start;
 	    //iterating through the linked list
-	    for(int i = 0; i < size; i++){
-		//when the last node is reached, a new node is added
-		if(i == size - 1){
-		    current.next = new LNode(value);
-		    size++;
-		    return true;
-		}
+	    //for(int i = 0; i < size; i++){
+	    	//when the last node is reached, a new node is added
+	    //	if(i == size - 1){
+	    //	    current.next = new LNode(value);
+	    //	    size++;
+	    //	    return true;
+	    //	}
 		//otherwise, continue iterating through the linked list
-		current = current.next;
-	    }
+	    //	current = current.next;
+	    //}
+	    end.next = new LNode(value);
+	    end = end.next;
+	    size++;
+	    return true;
 	}
-	return false;
     }
 
     public int get(int index){
