@@ -119,6 +119,36 @@ public class MyLinkedList{
 	return size;
     }
 
+    private void remove(LNode x){
+	if(x.prev == null && x.next == null){
+	    x.prev.next = x.next;
+	    x.next.prev = x.prev;
+	}
+	else if(x.prev == null){
+	    x.next.prev = null;
+	    start = x.next;
+	}
+	else{
+	    x.prev.next = null;
+	    end = x.prev;
+	}
+    }
+
+    public int remove(int index){
+	LNode toBeRemoved = null;;
+	LNode current = start;
+	int retVal = 0;
+	for(int i = 0; i < index + 1; i++){
+	    if(i == index){
+		toBeRemoved = current;
+		retVal = current.value;
+	    }
+	    current = current.next;
+	}
+	remove(toBeRemoved);
+	return retVal;
+    }
+	
     public String toStringx(){
 	//current is a temporary reference to node when iterating through linked list
 	LNode current = start;
@@ -185,6 +215,13 @@ public class MyLinkedList{
 	//indexOf
 	System.out.println(c.indexOf(100));
 	System.out.println(c.indexOf(33));
+	//remove
+	System.out.println(c.remove(0));
+	System.out.println(c);
+	System.out.println(c.remove(5));
+	System.out.println(c);
+	System.out.println(c.remove(9));
+	System.out.println(c);
 	
     }
     
