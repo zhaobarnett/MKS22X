@@ -7,7 +7,6 @@ public class MyLinkedList{
 
     public MyLinkedList(){
 	size = 0;
-	//not really necessary, default value of uninstantiated object is null
 	start = null;
 	end = null;
     }
@@ -15,8 +14,8 @@ public class MyLinkedList{
     //this can be an inner class because you would only instantiate it in MyLinkedList
     private class LNode{
 	private int value;
-	private LNode next;
-	private LNode prev;
+	private LNode next = null;
+	private LNode prev = null;
 	
 	private LNode(int value){
 	    this.value = value;
@@ -120,33 +119,80 @@ public class MyLinkedList{
     }
 
     private void remove(LNode x){
-	if(x.prev == null && x.next == null){
+	if(x.prev != null && x.next != null){
 	    x.prev.next = x.next;
 	    x.next.prev = x.prev;
 	}
 	else if(x.prev == null){
-	    x.next.prev = null;
 	    start = x.next;
+	    x.next.prev = null;
 	}
 	else{
-	    x.prev.next = null;
 	    end = x.prev;
+	    x.prev.next = null;
 	}
+	size--;
     }
 
     public int remove(int index){
-	LNode toBeRemoved = null;;
+	if(index < 0 || index >= size){
+	    throw new IndexOutOfBoundsException();
+	} else{
 	LNode current = start;
 	int retVal = 0;
 	for(int i = 0; i < index + 1; i++){
 	    if(i == index){
-		toBeRemoved = current;
 		retVal = current.value;
+		remove(current);
 	    }
 	    current = current.next;
 	}
-	remove(toBeRemoved);
 	return retVal;
+	}
+    }
+
+    private void insertAfter(LNode toBeAdded, LNode location){
+	toBeAdded.next = location.next;
+	toBeAdded.prev = location;
+	location.next = toBeAdded;
+	if(toBeAdded.next != null){
+	    toBeAdded.next.prev = toBeAdded;
+	} else{
+	    end = toBeAdded;
+	}
+	size++;
+    }
+
+    private void insertBefore(LNode toBeAdded, LNode location){
+	toBeAdded.prev = location.prev;
+	toBeAdded.next = location;
+        location.prev = toBeAdded;
+	if(toBeAdded.prev != null){
+	    toBeAdded.prev.next = toBeAdded;
+	} else{
+	    start = toBeAdded;
+	}
+	size++;
+    }
+
+    public void add(int index, int value){
+	if(index < 0 || index > size){
+	    throw new IndexOutOfBoundsException();
+	} else{
+	    if(index == size){
+		LNode toBeAdded = new LNode(value);
+		insertAfter(toBeAdded, end);
+	    } else{
+		LNode current = start;
+		for(int i = 0; i < index + 1; i++){
+		    if(i == index){
+			LNode toBeAdded = new LNode(value);
+			insertBefore(toBeAdded, current);
+		    }
+		    current = current.next;
+		}
+	    }
+	}
     }
 	
     public String toStringx(){
@@ -204,24 +250,39 @@ public class MyLinkedList{
 	}
 	System.out.println(c.size());
 	System.out.println(c);
+	
 	//get
 	//System.out.println(c.get(15));
 	System.out.println(c.get(9));
+	
 	//set
 	//System.out.println(c.set(-1, 1));
 	//System.out.println(c.set(15, 1));
 	System.out.println(c.set(3, 33));
 	System.out.println(c);
+	
 	//indexOf
 	System.out.println(c.indexOf(100));
 	System.out.println(c.indexOf(33));
+
+	System.out.println(c);
 	//remove
 	System.out.println(c.remove(0));
 	System.out.println(c);
 	System.out.println(c.remove(5));
 	System.out.println(c);
-	System.out.println(c.remove(9));
+	//System.out.println(c.remove(9));
+	//System.out.println(c);
+
+	//add
+	c.add(5, 6);
 	System.out.println(c);
+	c.add(0, 0);
+	System.out.println(c);
+	c.add(10, 10);
+	System.out.println(c);
+	//c.add(100, 0);
+	//c.add(-1, 0);
 	
     }
     
