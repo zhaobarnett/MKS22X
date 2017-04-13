@@ -1,14 +1,50 @@
 import java.util.*;
 
-public class MyLinkedList{
+public class MyLinkedList implements Iterable<Integer>{
     private int size;
     private LNode start;
     private LNode end;
+    private MyLinkedList x;
 
     public MyLinkedList(){
 	size = 0;
 	start = null;
 	end = null;
+	x = this;
+    }
+
+    public Iterator<Integer> iterator(){
+	//new instance of MLLIterator
+	return new MyLinkedListIterator(x);
+    }
+
+    public class MyLinkedListIterator implements Iterator<Integer>{
+	private MyLinkedList LinkedList;
+	private LNode element;
+
+	public MyLinkedListIterator(MyLinkedList x){
+	    LinkedList = x;
+	    element = start;
+	}
+
+	public boolean hasNext(){
+	    return element != null;
+	}
+	
+	public Integer next(){
+	    if(hasNext()){
+		int retVal = element.value; //you must save the value before going to next element
+		element = element.next;
+		return retVal; //this will terminate the function
+	    } else{
+		throw new NoSuchElementException();
+	    }
+	}
+	
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+
     }
 
     //this can be an inner class because you would only instantiate it in MyLinkedList
@@ -22,6 +58,11 @@ public class MyLinkedList{
 	}
 
 	public String toString(){
+	    return value + " ";
+	}
+
+	//for debugging
+	public String toStringx(){
 	    if(prev == null && next == null){
 		return "(null)" + value + "(null)";
 	    }
@@ -195,7 +236,7 @@ public class MyLinkedList{
 	}
     }
 	
-    public String toStringx(){
+    public String toString(){
 	//current is a temporary reference to node when iterating through linked list
 	LNode current = start;
 	String retVal = "[";
@@ -213,7 +254,7 @@ public class MyLinkedList{
     }
 
     //for debugging
-    public String toString(){
+    public String toStringx(){
 	//current is a temporary reference to node when iterating through linked list
 	LNode current = start;
 	String retVal = "[";
@@ -283,6 +324,16 @@ public class MyLinkedList{
 	System.out.println(c);
 	//c.add(100, 0);
 	//c.add(-1, 0);
+
+	//enhanced for loop
+	MyLinkedList d = new MyLinkedList();
+	for(int x = 0; x < 10; x++){
+	    System.out.println(d.add(x));
+	    //System.out.println(d.size());
+	}
+	for(int i: d){
+	    System.out.println(i);
+	}
 	
     }
     
