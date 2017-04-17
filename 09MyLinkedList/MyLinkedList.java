@@ -53,7 +53,7 @@ public class MyLinkedList implements Iterable<Integer>{
 	private LNode next = null;
 	private LNode prev = null;
 	
-	private LNode(int value){
+	public LNode(int value){
 	    this.value = value;
 	}
 
@@ -293,12 +293,12 @@ public class MyLinkedList implements Iterable<Integer>{
 	System.out.println(c);
 	
 	//get
-	//System.out.println(c.get(15));
+	//System.out.println(c.get(-5));
 	System.out.println(c.get(9));
 	
 	//set
 	//System.out.println(c.set(-1, 1));
-	//System.out.println(c.set(15, 1));
+	//System.out.println(c.set(10, 1));
 	System.out.println(c.set(3, 33));
 	System.out.println(c);
 	
@@ -312,7 +312,7 @@ public class MyLinkedList implements Iterable<Integer>{
 	System.out.println(c);
 	System.out.println(c.remove(5));
 	System.out.println(c);
-	//System.out.println(c.remove(9));
+	//System.out.println(c.remove(8));
 	//System.out.println(c);
 
 	//add
