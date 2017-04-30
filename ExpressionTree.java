@@ -1,10 +1,54 @@
+import java.util.*;
+
 public class ExpressionTree{
   
   /*return the value of the specified expression tree*/
   public double evaluate(){
     /*you are to write this method*/
-    return 0.0;
+      String postfix = toStringPostfix();
+      return eval(postfix);
+    //return 0.0;
   }
+
+    private static double eval(String s){
+	//splitting the string
+	String[] tokens = s.split(" ");
+	Stack<String> values = new Stack<String>();
+	for(String token: tokens){
+	    if(isOp(token)){
+		values.push(apply(token, values.pop(), values.pop()));
+	    } else{
+		values.push(token);
+	    }
+	}
+	return Double.parseDouble(values.pop());
+    }
+
+    private static boolean isOp(String s){
+	return s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/") || s.equals("%");
+    }
+
+    private static String apply(String operation, String a, String b){
+	Double x = Double.parseDouble(a);
+	Double y = Double.parseDouble(b);
+	String ans;
+	if(operation.equals("+")){
+	    ans = Double.toString(x + y);
+	}
+	else if(operation.equals("-")){
+	    ans = Double.toString(y - x);
+	}
+	else if(operation.equals("*")){
+	    ans = Double.toString(x * y);
+	}
+	else if(operation.equals("/")){
+	    ans = Double.toString(y / x);
+	}
+	else{
+	    ans = Double.toString(y % x);
+	}
+	return ans;
+    }
   
   /*return the expression as an infix notation string with parenthesis*/
   /* The sample tree would be: "( 3 + (2 * 10))"     */
@@ -12,7 +56,8 @@ public class ExpressionTree{
       if(isValue()){
 	  return getValue() + "";
       } else{
-	  return "(" + getLeft() + getOp() + getRight() + ")";
+	  //toString is implied
+	  return "(" + getLeft() + " " + getOp() + " " + getRight() + ")";
       }
       //return "";
   }
@@ -23,7 +68,8 @@ public class ExpressionTree{
       if(isValue()){
 	  return getValue() + "";
       } else{
-	  return "" + getLeft() + getRight() + getOp();
+	  //toStringPostfix must be called, otherwise toString is called
+	  return "" + getLeft().toStringPostfix() + " " + getRight().toStringPostfix() + " " + getOp();
       }
       //return "";
   }
@@ -33,7 +79,12 @@ public class ExpressionTree{
   
   public String toStringPrefix(){
     /*you are to write this method*/
-    return "";
+      if(isValue()){
+	  return getValue() + "";
+      } else{
+	  return "" + getOp() + " " + getLeft().toStringPrefix() + " " + getRight().toStringPrefix();
+      }
+    //return "";
   }
   
   
