@@ -65,29 +65,26 @@ public class MyHeap{
     private void pushDown(){
 	int location = 1;
 	while(location * 2 + 1 < list.size()){
-	    if(max){
-		if(list.get(location).compareTo(list.get(location * 2)) < 0)
-    }
-    
-}
-public class MyHeap{
-    private String[] arr;
-    private boolean max;
-
-    public MyHeap(){
-	arr = new String[10];
-	max = true;
-    }
-
-    public MyHeap(boolean b){
-	max = b;
-    }
-
-    private void resize(){
+	    if(list.get(location).compareTo(list.get(location * 2)) < 0 && list.get(location).compareTo(list.get(location * 2 + 1)) < 0){
+		swap(location, location * 2);
+		location *= 2;
+	    }
+	    else if(list.get(location).compareTo(list.get(location * 2)) < 0 && list.get(location).compareTo(list.get(location * 2 + 1)) > 0){
+		swap(location, location * 2);
+		location *= 2;
+	    }
+	    else if(list.get(location).compareTo(list.get(location * 2)) > 0 && list.get(location).compareTo(list.get(location * 2 + 1)) < 0){
+		swap(location, location * 2 + 1);
+		location = location * 2 + 1;
+	    } else{
+		break;
+	    }
+	}
     }
 
-    public void add(String s){
+    public static void main(String[] args){
 	
     }
-
+    
+    
 }
