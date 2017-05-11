@@ -1,36 +1,36 @@
 import java.util.*;
 
 public class MyHeap{
-    private ArrayList<String> list;
+    private ArrayList<Integer> list;
     private boolean max;
 
     public MyHeap(boolean b){
-	list = new ArrayList<String>();
+	list = new ArrayList<Integer>();
 	max = b;
     }
 
     public MyHeap(){
-	list = new ArrayList<String>();
+	list = new ArrayList<Integer>();
 	max = true;
     }
 
-    public void add(String s){
+    public void add(int i){
 	if(list.size() == 0){
-	    list.add(0, "null");
-	    list.add(1,s);
+	    list.add(0, 0);
+	    list.add(1, i);
 	} else{
-	    list.add(s);
+	    list.add(i);
 	    pushUp();
 	}
     }
 
-    public String remove(){
-	String retVal = list.get(1);
+    public int remove(){
+	int retVal = list.get(1);
 	if(list.size() >= 2){
 	    if(list.size() == 2){
 		list.remove(1);
 	    } else{
-		String newTop = list.remove(list.size() - 1);
+		int newTop = list.remove(list.size() - 1);
 		list.set(1,newTop);
 		pushDown(1);
 	    }
@@ -38,14 +38,14 @@ public class MyHeap{
 	return retVal;
     }
 
-    public String peek(){
+    public int peek(){
 	return list.get(1);
     }
 
     private void swap(int index1, int index2){
-	String s = list.get(index1);
+	int i = list.get(index1);
 	list.set(index1, list.get(index2));
-	list.set(index2, s);
+	list.set(index2, i);
     }
 
     private void pushUp(){
