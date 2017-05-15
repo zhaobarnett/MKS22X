@@ -51,64 +51,65 @@ public class MyHeap{
     private void pushUp(){
 	int location = list.size() - 1;
 	if(max){
-	    while(location > 1 && list.get(location / 2).compareTo(list.get(location)) < 0){
+	    while(location > 1 && list.get(location / 2) < list.get(location)){
 		    swap(location / 2, location);
 		    location /= 2;
 		}
 	} else{
-	    while(location > 1 && list.get(location / 2).compareTo(list.get(location)) > 0){
+	    while(location > 1 && list.get(location / 2) > list.get(location)){
 		swap(location / 2, location);
 		location /= 2;
 	    }
 	}
     }
 
-    // private void pushDown(){
-    //	int location = 1;
-    //	while(location * 2 + 1 < list.size()){
-    //	    if(list.get(location).compareTo(list.get(location * 2)) < 0 && list.get(location).compareTo(list.get(location * 2 + 1)) < 0){
-    //		swap(location, location * 2);
-    //		location *= 2;
-    //	    }
-    //	    else if(list.get(location).compareTo(list.get(location * 2)) < 0 && list.get(location).compareTo(list.get(location * 2 + 1)) > 0){
-    //		swap(location, location * 2);
-    //		location *= 2;
-    //	    }
-    //	    else if(list.get(location).compareTo(list.get(location * 2)) > 0 && list.get(location).compareTo(list.get(location * 2 + 1)) < 0){
-    //		swap(location, location * 2 + 1);
-    //		location = location * 2 + 1;
-    //	    } else{
-    //		break;
-    //	    }
-    //	}
-    //}
-
     private void pushDown(int location){
 	int constant;
 	if(max){
-	    constant = 1;
-	} else{
-	    constant = -1;
-	}
-	//does it have children?
-	if(location * 2 < list.size()){
-	    //does it have more than one child?
-	    if(location * 2 + 1 < list.size()){
-		if(list.get(location).compareTo(list.get(location * 2)) * constant < 0 || list.get(location).compareTo(list.get(location * 2 + 1)) * constant < 0){
-		    if(list.get(location * 2).compareTo(list.get(location * 2 + 1)) * constant < 0){
-			swap(location, location * 2 + 1);
-			pushDown(location * 2 + 1);
-		    } else{
+	    //does it have children?
+	    if(location * 2 < list.size()){
+		//does it have more than one child?
+		if(location * 2 + 1 < list.size()){
+		    if(list.get(location) < list.get(location * 2) || list.get(location) < list.get(location * 2 + 1)){
+			if(list.get(location * 2) < list.get(location * 2 + 1)){
+			    swap(location, location * 2 + 1);
+			    pushDown(location * 2 + 1);
+			} else{
+			    swap(location, location * 2);
+			    pushDown(location * 2);
+			}
+		    }
+		}
+		//only one child
+		else{
+		    if(list.get(location) < list.get(location * 2)){
 			swap(location, location * 2);
 			pushDown(location * 2);
 		    }
 		}
 	    }
-	    //only one child
-	    else{
-		if(list.get(location).compareTo(list.get(location * 2)) * constant < 0){
-		    swap(location, location * 2);
-		    pushDown(location * 2);
+	}
+	else{
+	    //does it have children?
+	    if(location * 2 < list.size()){
+		//does it have more than one child?
+		if(location * 2 + 1 < list.size()){
+		    if(list.get(location) > list.get(location * 2) || list.get(location) > list.get(location * 2 + 1)){
+			if(list.get(location * 2) > list.get(location * 2 + 1)){
+			    swap(location, location * 2 + 1);
+			    pushDown(location * 2 + 1);
+			} else{
+			    swap(location, location * 2);
+			    pushDown(location * 2);
+			}
+		    }
+		}
+		//only one child
+		else{
+		    if(list.get(location) > list.get(location * 2)){
+			swap(location, location * 2);
+			pushDown(location * 2);
+		    }
 		}
 	    }
 	}
@@ -121,12 +122,17 @@ public class MyHeap{
 	}
 	return ans;
     }
+
+    //size function for median
+    public int size(){
+	return list.size();
+    }
 	    
     public static void main(String[] args){
-	String s = "abcdefghijklmnopqrstuvwxyz";
+        int[] ary = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 	MyHeap max = new MyHeap();
-	for(int i = 0; i < 26; i++){
-	    max.add(s.substring(i, i + 1));
+	for(int i = 0; i < 10; i++){
+	    max.add(ary[i]);
 	}
 	System.out.println(max);
 	System.out.println(max.peek());
@@ -134,8 +140,8 @@ public class MyHeap{
 	System.out.println(max);
 
 	MyHeap min = new MyHeap(false);
-	for(int i = 25; i >= 0; i--){
-	    min.add(s.substring(i, i + 1));
+	for(int i = 9; i >= 0; i--){
+	    min.add(ary[i]);
 	}
 	System.out.println(min);
 	System.out.println(min.remove());
