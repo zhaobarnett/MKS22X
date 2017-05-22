@@ -1,16 +1,16 @@
 public class FrontierPriorityQueue implements Frontier{
-    private MyHeap h; //ordered by compareTo
+    private MyHeap heap; //ordered by compareTo
 
     public FrotierQueue{
-	h = new MyHeap();
+	heap = new MyHeap();
     }
 
     public void add(Location l){
-	h.add(l);
+	heap.add(l);
     }
 
     public Location next(){
-	return h.remove();
+	return heap.remove();
     }
     
 }

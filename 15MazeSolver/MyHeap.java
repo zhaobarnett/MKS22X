@@ -1,36 +1,36 @@
 import java.util.*;
 
 public class MyHeap{
-    private ArrayList<String> list;
+    private ArrayList<Location> list;
     private boolean max;
 
     public MyHeap(boolean b){
-	list = new ArrayList<String>();
+	list = new ArrayList<Location>();
 	max = b;
     }
 
     public MyHeap(){
-	list = new ArrayList<String>();
+	list = new ArrayList<Location>();
 	max = true;
     }
 
-    public void add(String s){
+    public void add(Location l){
 	if(list.size() == 0){
-	    list.add(0, "null");
-	    list.add(1,s);
+	    list.add(0, 0);
+	    list.add(1, l);
 	} else{
-	    list.add(s);
+	    list.add(l);
 	    pushUp();
 	}
     }
 
-    public String remove(){
-	String retVal = list.get(1);
+    public Location remove(){
+	Location retVal = list.get(1);
 	if(list.size() >= 2){
 	    if(list.size() == 2){
 		list.remove(1);
 	    } else{
-		String newTop = list.remove(list.size() - 1);
+		Location newTop = list.remove(list.size() - 1);
 		list.set(1,newTop);
 		pushDown(1);
 	    }
@@ -38,14 +38,14 @@ public class MyHeap{
 	return retVal;
     }
 
-    public String peek(){
+    public Location peek(){
 	return list.get(1);
     }
 
     private void swap(int index1, int index2){
-	String s = list.get(index1);
+	Location l = list.get(index1);
 	list.set(index1, list.get(index2));
-	list.set(index2, s);
+	list.set(index2, l);
     }
 
     private void pushUp(){
@@ -61,29 +61,9 @@ public class MyHeap{
 		location /= 2;
 	    }
 	}
-    }c
+    }
 
-    // private void pushDown(){
-    //	int location = 1;
-    //	while(location * 2 + 1 < list.size()){
-    //	    if(list.get(location).compareTo(list.get(location * 2)) < 0 && list.get(location).compareTo(list.get(location * 2 + 1)) < 0){
-    //		swap(location, location * 2);
-    //		location *= 2;
-    //	    }
-    //	    else if(list.get(location).compareTo(list.get(location * 2)) < 0 && list.get(location).compareTo(list.get(location * 2 + 1)) > 0){
-    //		swap(location, location * 2);
-    //		location *= 2;
-    //	    }
-    //	    else if(list.get(location).compareTo(list.get(location * 2)) > 0 && list.get(location).compareTo(list.get(location * 2 + 1)) < 0){
-    //		swap(location, location * 2 + 1);
-    //		location = location * 2 + 1;
-    //	    } else{
-    //		break;
-    //	    }
-    //	}
-    //}
-
-    private void pushDown(int location){
+   private void pushDown(int location){
 	int constant;
 	if(max){
 	    constant = 1;
@@ -121,25 +101,13 @@ public class MyHeap{
 	}
 	return ans;
     }
-	    
-    public static void main(String[] args){
-	String s = "abcdefghijklmnopqrstuvwxyz";
-	MyHeap max = new MyHeap();
-	for(int i = 0; i < 26; i++){
-	    max.add(s.substring(i, i + 1));
-	}
-	System.out.println(max);
-	System.out.println(max.peek());
-	System.out.println(max.remove());
-	System.out.println(max);
 
-	MyHeap min = new MyHeap(false);
-	for(int i = 25; i >= 0; i--){
-	    min.add(s.substring(i, i + 1));
-	}
-	System.out.println(min);
-	System.out.println(min.remove());
-	System.out.println(min);	
+    //size function for median
+    public int size(){
+	return list.size();
+    }
+	    
+    public static void main(String[] args){	
     }
     
 }

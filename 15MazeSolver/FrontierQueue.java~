@@ -1,4 +1,4 @@
-public class FrontierStack implements Frontier{
+public class FrontierQueue implements Frontier{
     private LinkedList list;
 
     public FrotierQueue{
@@ -10,7 +10,7 @@ public class FrontierStack implements Frontier{
     }
 
     public Location next(){
-	return list.removeLast();
+	return list.getFirst();
     }
 
 }
