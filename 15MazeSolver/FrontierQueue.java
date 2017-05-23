@@ -13,4 +13,8 @@ public class FrontierQueue implements Frontier{
 	return list.removeFirst();
     }
 
+    public int size(){
+	return list.size();
+    }
+
 }
