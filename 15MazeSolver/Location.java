@@ -1,7 +1,7 @@
 public class Location implements Comparable<Location>{
     private int row;
     private int col;
-    private Location previous;
+    public Location previous;
     private int distanceToStart;
     private int distanceToGoal;
     private boolean aStar;
@@ -38,6 +38,10 @@ public class Location implements Comparable<Location>{
 
     public int distToGoal(){
 	return distanceToGoal;
+    }
+
+    public boolean hasPrev(){
+	return previous != null;
     }
     
 }

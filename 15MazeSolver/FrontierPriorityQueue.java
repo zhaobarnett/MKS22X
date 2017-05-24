@@ -1,8 +1,10 @@
-public class FrontierPriorityQueue implements Frontier{
-    private MyHeap heap; //ordered by compareTo
+import java.util.*;
 
-    public FrotierQueue{
-	heap = new MyHeap();
+public class FrontierPriorityQueue implements Frontier{
+    private PriorityQueue<Location> heap; //ordered by compareTo
+
+    public FrontierPriorityQueue(){
+	heap = new PriorityQueue<Location>();
     }
 
     public void add(Location l){
@@ -10,7 +12,7 @@ public class FrontierPriorityQueue implements Frontier{
     }
 
     public Location next(){
-	return heap.remove();
+	return heap.poll();
     }
 
     public int size(){

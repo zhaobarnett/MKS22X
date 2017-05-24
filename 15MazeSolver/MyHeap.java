@@ -16,7 +16,7 @@ public class MyHeap{
 
     public void add(Location l){
 	if(list.size() == 0){
-	    list.add(0, 0);
+	    list.add(0, new Location(0,0,null,0,0,false));
 	    list.add(1, l);
 	} else{
 	    list.add(l);
@@ -104,7 +104,7 @@ public class MyHeap{
 
     //size function for median
     public int size(){
-	return list.size();
+	return list.size() - 1;
     }
 	    
     public static void main(String[] args){	

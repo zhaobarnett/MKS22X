@@ -1,8 +1,10 @@
-public class FrontierStack implements Frontier{
-    private LinkedList list;
+import java.util.*;
 
-    public FrotierQueue{
-	list = new LinkedList();
+public class FrontierStack implements Frontier{
+    private LinkedList<Location> list;
+
+    public FrontierStack(){
+	list = new LinkedList<Location>();
     }
 
     public void add(Location l){
