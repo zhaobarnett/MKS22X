@@ -87,12 +87,19 @@ public class MazeSolver{
 	return maze.toString(); //the toString of the maze instanceVariable
     }
 
+    public String toString(int ms){
+	return maze.toString(ms);
+    }
+
     public static void main(String[] args){
 	for(int i = 0; i < 4; i++){
-	    MazeSolver m = new MazeSolver("data3.txt");
+	    MazeSolver m = new MazeSolver("data2.txt");
 	    m.solve(i);
 	    System.out.println(m);
 	}
+	MazeSolver m = new MazeSolver("data4.txt");
+	m.solve();
+	System.out.println(m.toString(50));
     }
 	
 }
